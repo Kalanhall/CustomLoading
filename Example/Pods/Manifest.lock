@@ -1,5 +1,5 @@
 PODS:
-  - CustomLoading (1.0.0):
+  - CustomLoading (1.0.1):
     - lottie-ios
     - RefreshKit
   - lottie-ios (3.1.6)
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CustomLoading: a402d51457f008521371826d7dffd8c5109dd738
+  CustomLoading: de27b78dbd9e937a624d3200233058f69b23179c
   lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   RefreshKit: 7c7229c9026e13d7f447de0ada8f8628f5e31cb4
 
