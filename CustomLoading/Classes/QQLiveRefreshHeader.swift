@@ -31,8 +31,8 @@ open class QQLiveRefreshHeader : UIView, RefreshableHeader {
         return 50.0
     }
     
-    //监听百分比变化
-    private func percentUpdateDuringScrolling(_ percent:CGFloat){
+    // 监听百分比变化
+    public func percentUpdateDuringScrolling(_ percent:CGFloat){
         imageView.isHidden = (percent == 0)
         let adjustPercent = max(min(1.0, percent),0.0)
         let mappedIndex = Int(adjustPercent * 29)
