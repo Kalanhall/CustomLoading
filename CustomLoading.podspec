@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CustomLoading'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of CustomLoading.'
+  s.version          = '1.0.0'
+  s.summary          = '自定义加载动效'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,25 +18,27 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  简介：
+  自定义加载动效，京东...
                        DESC
 
-  s.homepage         = 'https://github.com/Kalanhall@163.com/CustomLoading'
+  s.homepage         = 'https://github.com/Kalanhall'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Kalanhall@163.com' => 'wujm002@galanz.com' }
-  s.source           = { :git => 'https://github.com/Kalanhall@163.com/CustomLoading.git', :tag => s.version.to_s }
+  s.author           = { 'Kalanhall@163.com' => 'Kalan' }
+  s.source           = { :git => 'https://github.com/Kalanhall/CustomLoading.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'CustomLoading/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'CustomLoading' => ['CustomLoading/Assets/*.png']
-  # }
+   s.resource_bundles = {
+     'CustomLoading' => ['CustomLoading/Assets/**/*']
+   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'lottie-ios'
+  s.dependency 'RefreshKit'
 end

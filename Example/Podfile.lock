@@ -1,0 +1,28 @@
+PODS:
+  - CustomLoading (1.0.0):
+    - lottie-ios
+    - RefreshKit
+  - lottie-ios (3.1.6)
+  - RefreshKit (1.0.2)
+
+DEPENDENCIES:
+  - CustomLoading (from `../`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - lottie-ios
+  https://github.com/Kalanhall/Specs.git:
+    - RefreshKit
+
+EXTERNAL SOURCES:
+  CustomLoading:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CustomLoading: a402d51457f008521371826d7dffd8c5109dd738
+  lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
+  RefreshKit: 7c7229c9026e13d7f447de0ada8f8628f5e31cb4
+
+PODFILE CHECKSUM: 0a814290576409bf6105f97f1f70a46b99cf3e89
+
+COCOAPODS: 1.8.3
