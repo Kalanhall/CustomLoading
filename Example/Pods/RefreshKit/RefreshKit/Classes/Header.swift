@@ -3,7 +3,7 @@
 //  RefreshKit
 //
 //  Created by Kalan on 20/3/25.
-//  
+//
 //  Copyright © 2020年 Kalan. All rights reserved.
 //
 
@@ -261,35 +261,43 @@ open class RefreshHeaderContainer:UIView{
                         self.delegate?.didCompleteHideAnimation(self.currentResult)
                 })
             case .refreshing:
+                let currentOffset = self.attachedScrollView.contentOffset
+                let offSetY = currentOffset.y
+                let topShowOffsetY = -1.0 * self.originalInset!.top
+                
+                var insetHeight:CGFloat! = self.delegate?.heightForRefreshingState?()
+                if insetHeight == nil{
+                    insetHeight = self.delegate?.heightForHeader()
+                }
+                var fireHeight:CGFloat! = self.delegate?.heightForFireRefreshing?()
+                if fireHeight == nil{
+                    fireHeight = self.delegate?.heightForHeader()
+                }
+                
+                let normal2pullingOffsetY = topShowOffsetY - fireHeight
+                let top = (self.originalInset?.top)! + insetHeight
+                if offSetY > normal2pullingOffsetY {
+                    self.attachedScrollView.contentOffset = CGPoint(x: 0, y: normal2pullingOffsetY)
+                }
+                
                 DispatchQueue.main.async(execute: {
-                    var insetHeight:CGFloat! = self.delegate?.heightForRefreshingState?()
-                    if insetHeight == nil{
-                        insetHeight = self.delegate?.heightForHeader()
-                    }
-                    var fireHeight:CGFloat! = self.delegate?.heightForFireRefreshing?()
-                    if fireHeight == nil{
-                        fireHeight = self.delegate?.heightForHeader()
-                    }
-                    let offSetY = self.attachedScrollView.contentOffset.y
-                    let topShowOffsetY = -1.0 * self.originalInset!.top
-                    let normal2pullingOffsetY = topShowOffsetY - fireHeight
-                    let currentOffset = self.attachedScrollView.contentOffset
-                    UIView.animate(withDuration: 0.4, animations: {
-                        let top = (self.originalInset?.top)! + insetHeight
+                    UIView.animate(withDuration: 0.5, animations: {
                         var oldInset = self.attachedScrollView.contentInset
                         oldInset.top = top
                         self.attachedScrollView.contentInset = oldInset
-                        if offSetY > normal2pullingOffsetY{ //手动触发
-                            self.attachedScrollView.contentOffset = CGPoint(x: 0, y: -1.0 * top)
-                        }else{//release，防止跳动
+                        if offSetY > normal2pullingOffsetY {
+                            // 手动触发
+                            self.attachedScrollView.contentOffset = CGPoint(x: 0, y: normal2pullingOffsetY)
+                        } else {
+                            // release，防止跳动
                             self.attachedScrollView.contentOffset = currentOffset
                         }
-                        }, completion: { (finsihed) in
-                            self.refreshAction?()
+                    }, completion: { (finsihed) in
+                        self.refreshAction?()
                     })
-                    self.delegate?.percentUpdateDuringScrolling?(1.0)
-                    self.delegate?.didBeginRefreshingState()
                 })
+                self.delegate?.percentUpdateDuringScrolling?(1.0)
+                self.delegate?.didBeginRefreshingState()
             default:
                 break
             }
@@ -404,6 +412,7 @@ open class RefreshHeaderContainer:UIView{
     func beginRefreshing(){
         if self.window != nil {
             self.state = .refreshing
+            
         }else{
             if state != .refreshing{
                 self.state = .willRefresh

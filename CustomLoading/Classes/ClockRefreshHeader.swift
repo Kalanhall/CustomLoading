@@ -12,6 +12,7 @@ import Lottie
 open class ClockRefreshHeader: UIView, RefreshableHeader {
 
     var isPlaying: Bool = false
+    var oldstate: RefreshHeaderState = .idle
     
     lazy var imageView = { () -> AnimationView in
         let view = AnimationView(name: "clock", bundle: Bundle.rk_bundleForCustomClass(JDPullRefreshHeader.self)!, imageProvider: nil, animationCache: nil)
@@ -46,7 +47,7 @@ open class ClockRefreshHeader: UIView, RefreshableHeader {
         
         if adjustPercent >= 1.0 {
             startAnimating()
-        } else if adjustPercent == 0 {
+        } else if adjustPercent == 0 && oldstate != .refreshing {
             stopAnimating()
         }
     }
@@ -64,6 +65,11 @@ open class ClockRefreshHeader: UIView, RefreshableHeader {
         stopAnimating()
     }
     
+    // 获取上一个状态
+    public func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
+        oldstate = oldState
+    }
+    
     func startAnimating() {
         if isPlaying == false {
             isPlaying = true
@@ -73,6 +79,7 @@ open class ClockRefreshHeader: UIView, RefreshableHeader {
     
     func stopAnimating() {
         isPlaying = false
+        oldstate = .idle
         imageView.stop()
     }
 
