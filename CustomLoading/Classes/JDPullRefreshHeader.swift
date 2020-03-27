@@ -37,17 +37,13 @@ open class JDPullRefreshHeader: UIView, RefreshableHeader {
     
     // 监听百分比变化
     public func percentUpdateDuringScrolling(_ percent:CGFloat){
-        imageView.isHidden = (percent == 0)
         let adjustPercent = max(min(1.0, percent), 0.0)
-        
         if adjustPercent >= 0.75 && isPlaying == false {
             imageView.play(fromProgress: 0, toProgress: 1, loopMode: .playOnce) { [weak self] (finish) in
                 if finish {
                     self?.startAnimating()
                 }
             }
-        } else if adjustPercent == 0 {
-            stopAnimating()
         }
     }
     
